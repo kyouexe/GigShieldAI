@@ -1,0 +1,201 @@
+/* ── Loading State ── */
+.premium-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+}
+
+.ai-spinner {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner-ring {
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner-icon {
+  color: var(--primary-light);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+.loading-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.loading-bar {
+  width: 220px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.loading-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  border-radius: 2px;
+  animation: fillBar 1.6s ease-in-out forwards;
+}
+
+@keyframes fillBar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.loading-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ── Premium Header ── */
+.premium-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.premium-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.premium-worker {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ── Risk Card ── */
+.premium-risk-card {
+  margin-bottom: 16px;
+}
+
+.risk-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.risk-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.risk-factors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.risk-factor {
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 50px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.risk-danger { border-left: 3px solid var(--danger); }
+.risk-warning { border-left: 3px solid var(--warning); }
+.risk-success { border-left: 3px solid var(--success); }
+
+/* ── Premium Grid ── */
+.premium-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.premium-amount-card {
+  text-align: center;
+  padding: 20px 16px;
+}
+
+.premium-icon {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.premium-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.premium-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -1px;
+}
+
+.premium-period {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Covered Card ── */
+.covered-card h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.covered-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.covered-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text);
+}
+
+.covered-item span {
+  font-size: 1rem;
+}
+
+.covered-card {
+  margin-bottom: 20px;
+}
