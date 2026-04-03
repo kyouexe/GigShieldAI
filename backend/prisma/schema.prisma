@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  WORKER
+  ADMIN
+}
+
+enum RiskZone {
+  SAFE
+  FLOOD_PRONE
+  HIGH_RISK
+}
+
+enum RiskCategory {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum ClaimStatus {
+  AUTO_APPROVED
+  REJECTED
+  PENDING
+}
+
+enum DisruptionType {
+  WEATHER
+  TRAFFIC
+  FLOOD
+  LOCAL_EVENT
+  HEATWAVE
+}
+
+model User {
+  id             String   @id @default(cuid())
+  name           String
+  phone          String   @unique
+  location       String
+  occupationType String
+  riskZone       RiskZone
+  role           Role     @default(WORKER)
+  passwordHash   String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  policies Policy[]
+  claims   Claim[]
+}
+
+model Policy {
+  id                String       @id @default(cuid())
+  policyCode        String       @unique
+  userId            String
+  coverageAmount    Float
+  weeklyPremium     Float
+  coverageHours     Int
+  riskCategory      RiskCategory
+  claimEligible     Boolean      @default(false)
+  eligibilityReason String?
+  isActive          Boolean      @default(true)
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  user   User    @relation(fields: [userId], references: [id])
+  claims Claim[]
+}
+
+model Claim {
+  id            String      @id @default(cuid())
+  claimCode     String      @unique
+  userId        String
+  policyId      String
+  reason        String
+  status        ClaimStatus @default(PENDING)
+  autoProcessed Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  policy Policy @relation(fields: [policyId], references: [id])
+}
+
+model DisruptionEvent {
+  id          String         @id @default(cuid())
+  type        DisruptionType
+  severity    String
+  location    String
+  riskZone    RiskZone
+  description String
+  isActive    Boolean        @default(true)
+  detectedAt  DateTime       @default(now())
+  expiresAt   DateTime
+}

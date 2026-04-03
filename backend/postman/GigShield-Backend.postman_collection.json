@@ -1,0 +1,123 @@
+{
+  "info": {
+    "name": "GigShield Backend APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for GigShield backend"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "token", "value": "" },
+    { "key": "userId", "value": "" },
+    { "key": "policyId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/auth/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Rahul Das\",\n  \"phone\": \"9876543210\",\n  \"location\": \"mumbai\",\n  \"occupationType\": \"Delivery Partner\",\n  \"riskZone\": \"FLOOD_PRONE\",\n  \"password\": \"secret123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"phone\": \"9876543210\",\n  \"password\": \"secret123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Users - Get by ID",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/users/{{userId}}"
+      }
+    },
+    {
+      "name": "Policies - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": "{{baseUrl}}/api/policies",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"coverageAmount\": 1000,\n  \"coverageHours\": 40,\n  \"riskCategory\": \"HIGH\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Policies - Get by User",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/policies/{{userId}}"
+      }
+    },
+    {
+      "name": "Policies - Update",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": "{{baseUrl}}/api/policies/{{policyId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"coverageAmount\": 1500,\n  \"coverageHours\": 48\n}"
+        }
+      }
+    },
+    {
+      "name": "Claims - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": "{{baseUrl}}/api/claims",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"policyId\": \"{{policyId}}\",\n  \"reason\": \"rain disruption\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Claims - Get by User",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/claims/{{userId}}"
+      }
+    },
+    {
+      "name": "Premium - Calculate",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/premium/calculate/{{userId}}"
+      }
+    },
+    {
+      "name": "Triggers - Check",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/triggers/check"
+      }
+    }
+  ]
+}
